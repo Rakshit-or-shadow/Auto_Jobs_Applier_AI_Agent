@@ -1,8 +1,6 @@
-from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Optional, Union
 import yaml
 from pydantic import BaseModel, EmailStr, HttpUrl, Field
-
 
 
 class PersonalInformation(BaseModel):
@@ -61,33 +59,6 @@ class Language(BaseModel):
     proficiency: Optional[str]
 
 
-class Availability(BaseModel):
-    notice_period: Optional[str]
-
-
-class SalaryExpectations(BaseModel):
-    salary_range_usd: Optional[str]
-
-
-class SelfIdentification(BaseModel):
-    gender: Optional[str]
-    pronouns: Optional[str]
-    veteran: Optional[str]
-    disability: Optional[str]
-    ethnicity: Optional[str]
-
-
-class LegalAuthorization(BaseModel):
-    eu_work_authorization: Optional[str]
-    us_work_authorization: Optional[str]
-    requires_us_visa: Optional[str]
-    requires_us_sponsorship: Optional[str]
-    requires_eu_visa: Optional[str]
-    legally_allowed_to_work_in_eu: Optional[str]
-    legally_allowed_to_work_in_us: Optional[str]
-    requires_eu_sponsorship: Optional[str]
-
-
 class Resume(BaseModel):
     personal_information: Optional[PersonalInformation]
     education_details: Optional[List[EducationDetails]] = None
@@ -120,7 +91,6 @@ class Resume(BaseModel):
             raise ValueError("Error parsing YAML file.") from e
         except Exception as e:
             raise Exception(f"Unexpected error while parsing YAML: {e}") from e
-
 
     def _process_personal_information(self, data: Dict[str, Any]) -> PersonalInformation:
         try:
